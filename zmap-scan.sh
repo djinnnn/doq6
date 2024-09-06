@@ -21,7 +21,7 @@ for ((i=1; i<6; i++)); do
     echo "Starting scan for shard $SHARD"
 
     # 执行 zmap 扫描
-    SCAN_COMMAND="sudo /home/wuyue/doq/doq6-scripts/zmap -M quic_initial -p 853 -o $OUTPUT_FILE --probe-args="padding:1200" --interface=eth0 --ipv6-source-ip=$ipv6 --ipv6-target-file=$INPUT_FILE -B 5M --gateway-mac=$gateway_mac"
+    SCAN_COMMAND="sudo /home/wuyue/doq/doq6-scripts/zmap -M ipv6_udp -p 853 --probe-args=file:initial_qscanner_1a1a1a1a.pkt -o $OUTPUT_FILE --interface=eth0 --ipv6-source-ip=$ipv6 --ipv6-target-file=$INPUT_FILE -B 5M --gateway-mac=$gateway_mac"
     echo "$SCAN_COMMAND"
     eval "$SCAN_COMMAND" 2>&1 | tail -n 10 -f >> "$LOG_FILE" &
 

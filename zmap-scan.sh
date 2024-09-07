@@ -7,6 +7,9 @@ input_file_path=$3
 # 定义常量
 LOG_DIRECTORY="$HOME/doq/data/20240904/scan_logs"
 
+[ ! -d "/home/wuyue/doq/data/20240904/zmap-output-v2" ] && mkdir -p "/home/wuyue/doq/data/20240904/zmap-output-v2"
+
+
 # 创建日志目录（如果不存在）
 mkdir -p "$LOG_DIRECTORY"
 

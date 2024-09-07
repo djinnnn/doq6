@@ -13,7 +13,7 @@ mkdir -p "$LOG_DIRECTORY"
 for ((i=1; i<6; i++)); do
     SHARD=$i
     LOG_FILE="$LOG_DIRECTORY/segment_${SHARD}_log.txt"
-    OUTPUT_FILE="/home/wuyue/doq/data/20240904/zmap-output/${SHARD}.csv"
+    OUTPUT_FILE="/home/wuyue/doq/data/20240904/zmap-output-v2/${SHARD}.csv"
     INPUT_FILE="${input_file_path}/input_0${SHARD}"
     
     echo "Starting scan for shard $SHARD" > "$LOG_FILE"
@@ -21,7 +21,7 @@ for ((i=1; i<6; i++)); do
     echo "Starting scan for shard $SHARD"
 
     # 执行 zmap 扫描
-    SCAN_COMMAND="sudo /home/wuyue/doq/doq6-scripts/zmap -M ipv6_udp -p 853 --probe-args=file:initial_qscanner_1a1a1a1a.pkt -o $OUTPUT_FILE --interface=eth0 --ipv6-source-ip=$ipv6 --ipv6-target-file=$INPUT_FILE -B 5M --gateway-mac=$gateway_mac"
+    SCAN_COMMAND="sudo /home/wuyue/doq/doq6-scripts/zmap -r 500 -M ipv6_udp -p 853 --probe-args=file:initial_qscanner_1a1a1a1a.pkt -o $OUTPUT_FILE --interface=eth0 --ipv6-source-ip=$ipv6 --ipv6-target-file=$INPUT_FILE --gateway-mac=$gateway_mac"
     echo "$SCAN_COMMAND"
     eval "$SCAN_COMMAND" 2>&1 | tail -n 10 -f >> "$LOG_FILE" &
 
